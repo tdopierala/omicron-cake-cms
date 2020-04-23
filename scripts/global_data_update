@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/var/www/html/cms-wardx-net/bin/cake import ins
