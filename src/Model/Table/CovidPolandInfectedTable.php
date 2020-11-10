@@ -8,16 +8,16 @@ namespace App\Model\Table;
 use Cake\ORM\Table;
 //use Cake\Validation\Validator;
 
-class CovidPolandTable extends Table
+class CovidPolandInfectedTable extends Table
 {
 	public static function defaultConnectionName(): string {
-        return 'localhost';
-    }
-	
-    public function initialize(array $config): void
-    {
-        parent::initialize($config);
+		return 'localhost';
+	}
 
-        $this->setTable('covid_poland');
-    }
+	public function initialize(array $config): void
+	{
+		parent::initialize($config);
+
+		$this->setTable('covid_poland_infected');
+	}
 }

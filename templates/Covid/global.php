@@ -31,7 +31,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-6 col-xl-4">
+	<div class="col-6">
 
 		<table class="table table-borderless table-sm world-nation-top">
 			<thead>
@@ -59,7 +59,7 @@
 
 	</div>
 
-	<div class="col-lg-6 col-xl-3">
+	<div class="col-6">
 
 		<table class="table table-borderless table-sm world-nation-middle">
 			<thead>
@@ -87,7 +87,7 @@
 
 	</div>
 
-	<div class="col-lg-6 col-xl-2">
+	<div class="col-4">
 
 		<table class="table table-borderless table-sm world-nation-small">
 			<thead>
@@ -115,7 +115,7 @@
 
 	</div>
 
-	<div class="col-lg-6 col-xl-2">
+	<div class="col-4">
 
 		<table class="table table-borderless table-sm world-nation-small">
 			<thead>

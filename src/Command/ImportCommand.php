@@ -10,6 +10,7 @@ use Cake\Console\ConsoleOptionParser;
 use PHPHtmlParser\Dom;
 use Cake\ORM\TableRegistry;
 use Cake\Datasource\ConnectionManager;
+use SimpleXLSX;
 
 /**
  * Import command.
@@ -203,6 +204,105 @@ class ImportCommand extends Command
 			}
 			//DELETE FROM `covid_it` WHERE `date`="2020-04-03" and time>"22:18:00"
 		}
+	}
+
+	public function download_spreadsheet_pl(Arguments $args, ConsoleIo $io) {
+
+		$gdoc_domain = "docs.google.com";
+		$gdoc_id = "12CChpbU1KJrMWo3ZhFtcixmqPfWYdJLeSKK1D8LN3uw";
+		$gdoc_url = "https://$gdoc_domain/spreadsheets/d/$gdoc_id/";
+
+		$format = "xlsx";
+
+		$spreadsheet_url = $gdoc_url . "export?format=" . $format;
+
+		$filename = "covid19_" . date("YmdHis") . "_" . sha1((string)rand()) . "." . $format;
+		
+		if(file_put_contents("tmp/" . $filename, file_get_contents($spreadsheet_url))) {
+			echo "File downloaded successfully"; 
+		}
+		
+	}
+
+	public function parse_spreadsheet_pl(Arguments $args, ConsoleIo $io) {
+
+		//require_once __DIR__.'/../../SimpleXLSX.php';
+
+		$dir = "tmp/";
+
+		if (is_dir($dir)){
+			if ($dh = opendir($dir)){
+			  while (($file = readdir($dh)) !== false){
+
+				if(substr($file, -4) != "xlsx") {
+					continue;
+				} else {
+
+					if ( $xlsx = SimpleXLSX::parse($dir . $file) ) {
+						
+						//print_r( $xlsx->sheetNames() );
+
+						/*
+						$rows = $xlsx->rows(5);
+						for($i=0; $i<count($rows); $i++) {
+							\print_r($xlsx->rows(5)[$i]);
+							readline("Continue? ");
+						}
+						*/
+						
+						//echo "\n" . $xlsx->getCell(5, 'Q29');
+
+						$q_cell = "AB23";
+						$_map = str_split("abcdefghijklmnopqrstuvwxyz");
+						$_row = "";
+						$_col = 0;
+
+						foreach(str_split($q_cell) as $q) {
+							if(is_numeric($q)) { 
+								$_row .= (string) $q; 
+								echo "\n" . $_row . " is a number"; 
+							}
+							elseif(is_string ($q)) {
+								$_col += array_search(strtolower($q), $_map) +1;
+								echo "\n" . $q . " is a char";
+								echo "\n" . (array_search(strtolower($q), $_map)+1) . " from map";
+							}
+						}
+
+						$_row = 1 + (int) $_row;
+						echo "\n" . $_row . "/" . $_col;
+
+						$row=31;
+						$col=26;
+
+						$_xlsx = $xlsx->rowsEx(5);
+
+						echo "\n\n";
+						print_r($_xlsx[$row-1][$col]);
+
+						/*
+						echo "\n";
+						foreach($_xlsx[$row-1] as $cell) {
+							echo $cell['f'] . " | ";
+						}
+						echo "\n";
+						*/
+
+						break;
+					}
+
+				}
+
+
+			  }
+			  closedir($dh);
+			}
+		  }
+
+		/*if ( $xlsx = SimpleXLSX::parse( 'xlsx/books.xlsx' ) ) {
+			print_r( $xlsx->sheetNames() );
+		}*/
+		
 	}
 
 

@@ -319,6 +319,17 @@ return [
             'cacheMetadata' => true,
             'log' => false,
             'quoteIdentifiers' => false,
+		],
+		
+		'localhost' => [
+            'className' => Connection::class,
+            'driver' => Mysql::class,
+            'persistent' => false,
+            'timezone' => 'UTC',
+            'flags' => [],
+            'cacheMetadata' => true,
+            'log' => true,
+            'quoteIdentifiers' => false,
         ],
 
         /*
@@ -365,6 +376,13 @@ return [
             'file' => 'queries',
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
+		],
+		'covid' => [
+			'className' => FileLog::class,
+            'path' => LOGS,
+            'file' => 'cli-covid-queries',
+            'url' => env('LOG_DEBUG_URL', null),
+            'scopes' => ['covidQueries'],
         ],
     ],
 

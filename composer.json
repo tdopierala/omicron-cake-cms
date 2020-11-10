@@ -10,7 +10,8 @@
         "cakephp/migrations": "^3.0",
         "cakephp/plugin-installer": "^1.2",
         "mobiledetect/mobiledetectlib": "^2.8",
-        "paquettg/php-html-parser": "^2.2"
+        "paquettg/php-html-parser": "^2.2",
+        "shuchkin/simplexlsx": "^0.8.19"
     },
     "require-dev": {
         "cakephp/bake": "^2.0.3",
@@ -28,13 +29,19 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/"
-        }
+		},
+		"SimpleXLSX": [
+			"vendor/shuchkin/simplexlsx"
+		]
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
-        }
+        },
+		"SimpleXLSX": [
+			"vendor/shuchkin/simplexlsx"
+		]
     },
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
